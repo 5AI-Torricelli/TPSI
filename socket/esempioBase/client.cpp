@@ -10,8 +10,8 @@ int main() {
   int sock = socket(AF_INET, SOCK_STREAM, 0);
 
   sockaddr_in addr{};
-  addr.sin_family = AF_INET; // Indichiamo che useremo IPv4.
-  addr.sin_port = htons(8080); // Porta 8080, convertita in network byte order (big endian).
+  addr.sin_family = AF_INET;                       // Indichiamo che useremo IPv4.
+  addr.sin_port = htons(8080);                     // Porta 8080, convertita in network byte order (big endian).
   inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr); // Converte la stringa "127.0.0.1" (localhost) in un indirizzo IP binario.
 
   connect(sock, (sockaddr *)&addr, sizeof(addr)); // Tenta di connettersi al server specificato (127.0.0.1:8080).
