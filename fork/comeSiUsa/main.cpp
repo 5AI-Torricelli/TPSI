@@ -17,7 +17,7 @@ int main(){
     // Esso è completamente indipendente da quello padre
     int r = fork();
 
-    if(r < 0){
+    if (r < 0) {
         cerr << "Errore nella creazione del processo\n";
         return 1;
     } else if (r > 0){
@@ -32,7 +32,6 @@ int main(){
         wait(&stato);
         cout << stato << "\n";
     } else {
-        
         p = getpid();
         cout << "Pid figlio: " << p << "\n";
         for (int i = 0; i < 6; i++) {
