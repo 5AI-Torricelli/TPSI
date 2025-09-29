@@ -5,15 +5,16 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   // Crea un socket TCP (AF_INET = IPv4, SOCK_STREAM = TCP).
   // Restituisce un file descriptor che rappresenta il socket.
   // file descriptor = un numero intero che linux usa per riferirsi a una risorsa aperta.
-  int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+  int server_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
   sockaddr_in addr{};
   addr.sin_family = AF_INET;         // Indichiamo che useremo IPv4.
-  addr.sin_addr.s_addr = INADDR_ANY; // Accetta connessioni da qualsiasi indirizzo locale.
+  addr.sin_addr.s_addr = INADDR_ANY; // Accetta connessioni da qualsiasi indirizzo.
   addr.sin_port = htons(8080);       // Porta 8080, convertita in network byte order (big endian).
 
   // "Collega" il socket a indirizzo e porta scelti.
