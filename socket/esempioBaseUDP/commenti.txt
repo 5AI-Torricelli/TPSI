@@ -1,0 +1,42 @@
+Perche memset dopo aver dichiarato la struttura?
+Il sistema operativo quando creiamo una struttura assegna ad essa
+uno spazio nella memoria. Questo spazio pero contiene ancora dati vecchi
+non ripuliti. Per questo, per evitare problemi, si azzera il tutto.
+
+Perche e possibile fare il casting "(struct sockaddr*) &addr" ?
+
+Queste sono le definizioni delle due strutture:
+-------------------------
+struct sockaddr {
+    unsigned short sa_family;   // Address family 2 byte
+    char sa_data[14];           // Protocol-specific data 14 byte
+};
+
+struct sockaddr_in {
+    short sin_family;           // Address family (AF_INET) 2 byte
+    unsigned short sin_port;    // Port number 2 byte
+    struct in_addr sin_addr;    // IPv4 address 4 byte
+    unsigned char sin_zero[8];  // Padding 8 byte
+};
+---------------------------
+
+Quando viene fatto il casting vengono comunque presi i attributi 
+sin_port
+sin_addr
+sin_zero
+anche se non definiti nella struttura sockaddr.
+
+Questo perche in sockaddr vi e presente un array di char che occupa quello spazio (casting dice solo al programma come trattare quei dati)
+e la funzione bind riesce comunque a prendere quei dati facendo nuovamente il casting nel dato che li serve. 
+Esempio:
+
+unsigned short portaBigEndian = *(unsigned short*)(&sockaddr.sa_data[0])
+
+magari usando dopo nthons() per ritrasformarlo in numero leggibile dalla macchina stessa
+
+
+C'e un limite alla grandezza dei dati che possono essere mandati con il sendTo?
+Si, ed e di 65,507 bytes (per IPv4).
+Nel livello ip questi vengono comunque frammentati in pacchetti da 1500 byte.
+Ma se si sorpassa il limitie dei 65,507 byte viene dato un errore, e a questo punto si devono frammentare
+a livello application (quindi nel programma manualmente)
