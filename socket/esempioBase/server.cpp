@@ -12,7 +12,7 @@ int main()
   // file descriptor = un numero intero che linux usa per riferirsi a una risorsa aperta.
   int server_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-  sockaddr_in addr{};
+  sockaddr_in addr{}; // Instanzia struct con tutti valori a 0 anzichè indefiniti
   addr.sin_family = AF_INET;         // Indichiamo che useremo IPv4.
   addr.sin_addr.s_addr = INADDR_ANY; // Accetta connessioni da qualsiasi indirizzo.
   addr.sin_port = htons(8080);       // Porta 8080, convertita in network byte order (big endian).
@@ -32,7 +32,7 @@ int main()
   // Riceve dati inviati dal client attraverso il socket.
   // Scrive il messaggio nel buffer.
   char buffer[1024] = {0};
-  recv(client_fd, buffer, sizeof(buffer), 0);
+  recv(client_fd, buffer, sizeof(buffer), 0); // Se messaggio ricevuto supera grandezza buffer viene troncato
   cout << "Messaggio ricevuto: " << buffer << endl;
 
   const char *reply = "Hello World dal server!";
