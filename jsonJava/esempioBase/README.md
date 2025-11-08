@@ -14,6 +14,12 @@ Successivamente si accede a un terminale andando nella cartella del progetto ed 
 javac -d lib/javaxjson-bin $(find lib/javaxjson-src/main/java -name "*.java")
 ```
 
+su Windows:
+
+```powershell
+for /R lib\javaxjson-src\main\java %f in (*.java) do javac -d lib\javaxjson-bin "%f"
+```
+
 Questo comando crea i `.class` dentro a `lib/javaxjson-bin`.
 
 Mentre con quest'altro comando si compila il programma:
