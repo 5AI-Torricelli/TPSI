@@ -1,3 +1,9 @@
+<h1 align="center">Lettura di un file JSON</h1>
+
+Dato un file json con all'interno dei libri registrati.
+
+Questo programma legge e stampa il contenuto del file `libri.json` fornito.
+
 ## Compilazione
 
 Scaricare online questi due file jar, che contengono le librerie per utilizzare [javax.json](https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4):
